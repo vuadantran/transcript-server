@@ -9,7 +9,7 @@ const {
 
 console.log("Running...")
 //showing demo records
-router.get('/', async (req, res) => {
+router.get('/get', async (req, res) => {
   try {
     const parsedUrl = url.parse(req.url, true); // Parse the URL including query parameters
     const queryParameters = parsedUrl.query;    // Extract query parameters object
