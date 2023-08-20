@@ -20,7 +20,7 @@ server = http.createServer(async function(req, res) {
       const videoId = queryParameters.videoId; 
       console.log('Receive videoId: ' + videoId) 
       data = await loadScripts(videoId).then((res) => {return res});
-      // console.log(data)
+      console.log('End...')
       res.writeHead(200, { 'Content-Type': 'application/json' });
       res.write(JSON.stringify(data));
       res.end();
