@@ -6,9 +6,12 @@ const url = require('url');
 const {
   YoutubeTranscript
 } = require('youtube-transcript');
+const cors = require('cors');
 
 console.log("Running...")
-//showing demo records
+
+app.use(cors()); // Enables CORS for all routes
+
 router.get('/', async (req, res) => {
   try {
     const parsedUrl = url.parse(req.url, true); // Parse the URL including query parameters
