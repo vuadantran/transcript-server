@@ -7,9 +7,9 @@ const {
   YoutubeTranscript
 } = require('youtube-transcript');
 
-console.log("CC")
+console.log("Running...")
 //showing demo records
-router.get('/', async (req, res) => {
+router.get('/demo', async (req, res) => {
   try {
     const parsedUrl = url.parse(req.url, true); // Parse the URL including query parameters
     const queryParameters = parsedUrl.query;    // Extract query parameters object
@@ -42,7 +42,7 @@ async function loadScripts(videoId) {
   return scripts;
 }
 
-app.use('', router);
+app.use('/.netlify/functions/api', router);
 module.exports.handler = serverless(app);
 
 // Uncomment to start local
