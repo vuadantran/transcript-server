@@ -29,5 +29,3 @@ jobs:
           node index.js &
       - name: Deploy page
         uses: actions/deploy-pages@v2
-        with:
-          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
