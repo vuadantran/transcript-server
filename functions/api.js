@@ -2,49 +2,51 @@ const express = require('express');
 const serverless = require('serverless-http');
 const app = express();
 const router = express.Router();
+const url = require('url');
+const {
+  YoutubeTranscript
+} = require('youtube-transcript');
 
-let records = [];
-
-//Get all students
-router.get('/', (req, res) => {
-  res.send('App is running..');
-});
-
-//Create new record
-router.post('/add', (req, res) => {
-  res.send('New record added.');
-});
-
-//delete existing record
-router.delete('/', (req, res) => {
-  res.send('Deleted existing record');
-});
-
-//updating existing record
-router.put('/', (req, res) => {
-  res.send('Updating existing record');
-});
-
+console.log("CC")
 //showing demo records
-router.get('/demo', (req, res) => {
-  res.json([
-    {
-      id: '001',
-      name: 'Smith',
-      email: 'smith@gmail.com',
-    },
-    {
-      id: '002',
-      name: 'Sam',
-      email: 'sam@gmail.com',
-    },
-    {
-      id: '003',
-      name: 'lily',
-      email: 'lily@gmail.com',
-    },
-  ]);
+router.get('/', async (req, res) => {
+  try {
+    const parsedUrl = url.parse(req.url, true); // Parse the URL including query parameters
+    const queryParameters = parsedUrl.query;    // Extract query parameters object
+  
+    // Access individual query parameters
+    const videoId = queryParameters.videoId; 
+    console.log('Receive videoId: ' + videoId) 
+    data = await loadScripts(videoId).then((res) => {return res});
+    console.log('End...')
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.write(JSON.stringify(data));
+    res.end();
+        
+  } catch (e) {
+    res.writeHead(503,  { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({'Attr': 'name: ' + e.name + ' message: ' + e.message + ' at: ' + e.at + ' text: ' + e.text, "Error": e.stack}))
+  }
 });
 
-app.use('/.netlify/functions/api', router);
+async function loadScripts(videoId) {
+
+  const config = {
+      lang: 'en',
+      country: 'EN'
+  };
+
+  const scripts = await YoutubeTranscript.fetchTranscript(videoId, config).then((res) => {
+      return res
+  });
+  return scripts;
+}
+
+app.use('', router);
 module.exports.handler = serverless(app);
+
+// Uncomment to start local
+// port = 3000
+// app.listen(port, () => {
+//   console.log(`Example app listening on port ${port}`)
+// })
