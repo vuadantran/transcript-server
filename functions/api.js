@@ -1,5 +1,4 @@
 const express = require('express');
-const serverless = require('serverless-http');
 const app = express();
 const router = express.Router();
 const url = require('url');
@@ -10,11 +9,8 @@ console.log("Running...")
 
 app.use(cors()); // Enables CORS for all routes
 
-// app.get('/', (req, res) => {
-//   res.send('Hello World!')
-// })
-
-app.get('/', async (req, res) => {
+// app.get('/', async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const parsedUrl = url.parse(req.url, true); // Parse the URL including query parameters
     const queryParameters = parsedUrl.query;    // Extract query parameters object
@@ -44,15 +40,16 @@ async function loadScripts(videoId) {
   // const scripts = await YouTubeTranscriptAPI.fetchTranscript(videoId, config).then((res) => {
   //     return res
   // });
+  
   const scripts = await YouTubeTranscriptAPI.getTranscript(videoId).then(transcript => transcript);
   return scripts;
 }
 
-// app.ussae('/.netlify/functions/api', router);
-// module.exports.handler = serverless(app);
+app.use('/.netlify/functions/api', router);
+module.exports.handler = serverless(app);
 
 // Uncomment to start local
-port = 3000
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+// port = 3000
+// app.listen(port, () => {
+//   console.log(`Example app listening on port ${port}`)
+// })
