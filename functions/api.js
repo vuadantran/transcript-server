@@ -27,7 +27,7 @@ router.get('/', async (req, res) => {
     res.end();
         
   } catch (e) {
-    console.log('Error: ' + e);
+    console.error("Error", e, e.stack);
     res.writeHead(503,  { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({'Attr': 'name: ' + e.name + ' message: ' + e.message + ' at: ' + e.at + ' text: ' + e.text, "Error": e.stack}))
   }
@@ -50,7 +50,7 @@ app.use('/.netlify/functions/api', router);
 module.exports.handler = serverless(app);
 
 // Uncomment to start local
-// port = 3000
-// app.listen(port, () => {
-//   console.log(`Example app listening on port ${port}`)
-// })
+port = 3000
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)
+})
