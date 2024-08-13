@@ -10,7 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    // "@0x6a69616e/youtube-transcript": "github:0x6a69616e/youtube-transcript",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "netlify-cli": "^12.7.2",
