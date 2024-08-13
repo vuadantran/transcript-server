@@ -27,6 +27,7 @@ router.get('/', async (req, res) => {
     res.end();
         
   } catch (e) {
+    console.log('Error: ' + e);
     res.writeHead(503,  { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({'Attr': 'name: ' + e.name + ' message: ' + e.message + ' at: ' + e.at + ' text: ' + e.text, "Error": e.stack}))
   }
