@@ -3,7 +3,8 @@ const serverless = require('serverless-http');
 const app = express();
 const router = express.Router();
 const url = require('url');
-YouTubeTranscriptAPI = require('@0x6a69616e/youtube-transcript');
+// YouTubeTranscriptAPI = require('@0x6a69616e/youtube-transcript');
+YouTubeTranscriptAPI = require('youtube-transcript').YoutubeTranscript;
 const cors = require('cors');
 
 console.log("Running...")
@@ -33,16 +34,16 @@ router.get('/', async (req, res) => {
 
 async function loadScripts(videoId) {
 
-  // const config = {
-  //     lang: 'en',
-  //     country: 'EN'
-  // };
+  const config = {
+      lang: 'en',
+      country: 'EN'
+  };
 
-  // const scripts = await YouTubeTranscriptAPI.fetchTranscript(videoId, config).then((res) => {
-  //     return res
-  // });
+  const scripts = await YouTubeTranscriptAPI.fetchTranscript(videoId, config).then((res) => {
+      return res
+  });
   
-  const scripts = await YouTubeTranscriptAPI.getTranscript(videoId).then(transcript => transcript);
+  // const scripts = await YouTubeTranscriptAPI.getTranscript(videoId).then(transcript => transcript);
   return scripts;
 }
 

@@ -10,11 +10,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@0x6a69616e/youtube-transcript": "github:0x6a69616e/youtube-transcript",
+    // "@0x6a69616e/youtube-transcript": "github:0x6a69616e/youtube-transcript",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "netlify-cli": "^12.7.2",
     "netlify-lambda": "^2.0.15",
-    "serverless-http": "^2.7.0"
+    "serverless-http": "^2.7.0",
+    "youtube-transcript": "^1.2.1"
   }
 }
